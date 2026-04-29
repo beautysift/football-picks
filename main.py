@@ -17,9 +17,17 @@ def fetch_odds():
         "dateFormat": "iso"
     }
     r = requests.get(url, params=params)
-    return r.json()
+    data = r.json()
+    print("API status:", r.status_code)
+    if isinstance(data, dict):
+        print("API error response:", json.dumps(data))
+        return []
+    print("Got", len(data), "matches")
+    return data
 
 def prepare_match_summary(match):
+    if not isinstance(match, dict):
+        return None
     bookmakers = match.get("bookmakers", [])
     if not bookmakers:
         return None
@@ -58,22 +66,13 @@ def analyze_with_minimax(matches_data):
         "Content-Type": "application/json"
     }
     matches_text = json.dumps(matches_data, ensure_ascii=False, indent=2)
-    
-    example = '[{"home":"ทีมเหย้า","away":"ทีมเยือน","league":"ลีก","commence":"เวลา","home_win_pct":55,"draw_pct":25,"away_win_pct":20,"bet":"แนะนำ","odds_target":1.85,"confidence":"high","analysis":"วิเคราะห์สไตล์สตรีท","odds_home":1.75,"odds_draw":3.20,"odds_away":4.50}]'
-    
-    user_content = "ข้อมูล odds วันนี้:\n" + matches_text + "\n\nคัด 3 คู่เด็ด ตอบ JSON array: " + example
-    
+    example = '[{"home":"Home","away":"Away","league":"League","commence":"Time","home_win_pct":55,"draw_pct":25,"away_win_pct":20,"bet":"Bet","odds_target":1.85,"confidence":"high","analysis":"Analysis","odds_home":1.75,"odds_draw":3.20,"odds_away":4.50}]'
+    user_content = "odds data:\n" + matches_text + "\n\nPick 3 best matches, respond JSON array: " + example
     payload = {
         "model": "abab6.5s-chat",
         "messages": [
-            {
-                "role": "system",
-                "content": "แกคือเด็กสตรีทนักวิเคราะห์บอล พูดสั้น กระแทก สไตล์วัยรุ่นไทย ใช้ เว้ย อ่ะ โคตร ปัง มั่นใจ ไม่ลังเล ตอบเป็น JSON เท่านั้น ห้าม markdown ห้าม backtick"
-            },
-            {
-                "role": "user",
-                "content": user_content
-            }
+            {"role": "system", "content": "Football analyst. Respond JSON only. No markdown."},
+            {"role": "user", "content": user_content}
         ],
         "max_tokens": 1500
     }
@@ -87,15 +86,18 @@ def analyze_with_minimax(matches_data):
     return json.loads(text)
 
 def main():
-    print("กำลังดึงข้อมูล odds...")
+    print("Fetching odds...")
     raw = fetch_odds()
+    if not raw:
+        print("No data from API, exiting")
+        return
     matches = [s for m in raw if (s := prepare_match_summary(m)) and s["odds"]["home"]]
-    print("เจอ " + str(len(matches)) + " แมตช์")
+    print("Valid matches: " + str(len(matches)))
     if len(matches) < 3:
-        print("แมตช์ไม่พอ")
+        print("Not enough matches")
         return
     top = sorted(matches, key=lambda x: x["bookmaker_count"], reverse=True)[:15]
-    print("กำลังวิเคราะห์...")
+    print("Analyzing...")
     picks = analyze_with_minimax(top)
     output = {
         "date": datetime.now(timezone.utc).strftime("%d/%m/%Y"),
@@ -105,8 +107,7 @@ def main():
     os.makedirs("web", exist_ok=True)
     with open("web/picks.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
-    print("เสร็จแล้ว!")
-    print(json.dumps(output, ensure_ascii=False, indent=2))
+    print("Done!")
 
 if __name__ == "__main__":
     main()
