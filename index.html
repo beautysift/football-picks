@@ -1,1 +1,345 @@
-<!doctype html><html lang="th"><head><meta charset="UTF-8"><title>StreetPick</title></head><body><h1>StreetPick</h1></body></html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreetPick — 3 คู่เด็ดประจำวัน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: #222222;
+    --text: #f0f0f0;
+    --muted: #555555;
+    --muted2: #333333;
+    --green: #00ff87;
+    --yellow: #ffd166;
+    --red: #ff6b6b;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Noto Sans Thai', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 1.5rem 1.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+  .logo span { color: var(--green); }
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* DATE BAR */
+  .datebar {
+    padding: 0.6rem 1.5rem;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* PICKS */
+  .picks { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s;
+    animation: fadeup 0.4s ease both;
+  }
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.15s; }
+  .card:nth-child(3) { animation-delay: 0.25s; }
+  @keyframes fadeup {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card:hover { border-color: #333; transform: translateY(-1px); }
+
+  .card-head {
+    padding: 1rem 1.25rem 0.8rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .rank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .rank { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .conf-row { display: flex; align-items: center; gap: 8px; }
+  .conf-label { font-size: 10px; color: var(--muted); }
+  .conf-track {
+    width: 70px; height: 3px;
+    background: var(--muted2);
+    border-radius: 2px; overflow: hidden;
+  }
+  .conf-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+  .conf-num { font-size: 12px; font-weight: 700; }
+
+  .teams {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .league { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .card-body {
+    padding: 0.8rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .stat-value { font-size: 13px; font-weight: 500; }
+
+  .bet-pill {
+    display: inline-block;
+    background: rgba(0,255,135,0.08);
+    border: 0.5px solid rgba(0,255,135,0.25);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .odds-num { color: var(--yellow); font-weight: 700; font-size: 15px; }
+
+  /* PROB BAR */
+  .prob-section { padding: 0.7rem 1.25rem; border-bottom: 0.5px solid var(--border); }
+  .prob-bar-wrap { display: flex; height: 6px; border-radius: 3px; overflow: hidden; gap: 2px; margin-bottom: 6px; }
+  .prob-seg { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+  .prob-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+  .prob-labels span { display: flex; align-items: center; gap: 4px; }
+  .prob-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* ANALYSIS */
+  .card-foot { padding: 0.7rem 1.25rem; background: #0d0d0d; }
+  .analysis { font-size: 12px; color: #888; line-height: 1.6; }
+
+  /* ODDS ROW */
+  .odds-row {
+    display: flex;
+    gap: 6px;
+    padding: 0.6rem 1.25rem;
+    background: var(--surface2);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .odds-box {
+    flex: 1;
+    text-align: center;
+    padding: 6px 4px;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+  }
+  .odds-box-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .odds-box-val { font-size: 14px; font-weight: 700; color: var(--text); }
+
+  /* LOADING / ERROR */
+  .state {
+    text-align: center;
+    padding: 4rem 1.5rem;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 2px solid var(--border);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* FOOTER */
+  footer {
+    margin-top: 2rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted2);
+    border-top: 0.5px solid var(--border);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .teams { font-size: 1.2rem; }
+    .card-body { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">STREET<span>PICK</span></div>
+  <div class="live-badge"><span class="dot"></span>LIVE ODDS</div>
+</header>
+
+<div class="datebar">
+  <span id="date-label">—</span>
+  <span id="updated-label">—</span>
+</div>
+
+<main class="picks" id="picks">
+  <div class="state"><div class="spinner"></div>กำลังโหลดข้อมูล...</div>
+</main>
+
+<footer>วิเคราะห์จาก odds จริง — ไม่ใช่คำแนะนำการเดิมพัน — ผลบอลกลมเสมอ</footer>
+
+<script>
+function confColor(c) {
+  if (c === 'high') return '#00ff87';
+  if (c === 'medium') return '#ffd166';
+  return '#ff6b6b';
+}
+function confPct(c) {
+  if (c === 'high') return 85;
+  if (c === 'medium') return 65;
+  return 45;
+}
+function rankLabel(i) {
+  return ['คู่ที่ 1 🥇','คู่ที่ 2 🥈','คู่ที่ 3 🥉'][i] || `คู่ที่ ${i+1}`;
+}
+function formatTime(iso) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleString('th-TH', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' });
+  } catch { return iso; }
+}
+
+async function load() {
+  const container = document.getElementById('picks');
+  try {
+    const r = await fetch('web/picks.json?t=' + Date.now());
+    if (!r.ok) throw new Error('โหลดไม่ได้');
+    const data = await r.json();
+
+    document.getElementById('date-label').textContent = data.date || '—';
+    document.getElementById('updated-label').textContent = 'อัพเดท ' + formatTime(data.updated_at);
+
+    if (!data.picks || data.picks.length === 0) {
+      container.innerHTML = '<div class="state">ยังไม่มีข้อมูลวันนี้ รอ 08:00 น.</div>';
+      return;
+    }
+
+    container.innerHTML = data.picks.map((p, i) => {
+      const col = confColor(p.confidence);
+      const pct = confPct(p.confidence);
+      const hw = p.home_win_pct || 0;
+      const dp = p.draw_pct || 0;
+      const aw = p.away_win_pct || 0;
+
+      return `
+      <div class="card">
+        <div class="card-head">
+          <div class="rank-row">
+            <span class="rank">${rankLabel(i)}</span>
+            <div class="conf-row">
+              <span class="conf-label">ความเชื่อมั่น</span>
+              <div class="conf-track"><div class="conf-fill" style="width:${pct}%;background:${col}"></div></div>
+              <span class="conf-num" style="color:${col}">${pct}%</span>
+            </div>
+          </div>
+          <div class="teams">${p.home} <span style="color:var(--muted);font-size:1rem">vs</span> ${p.away}</div>
+          <div class="league">${p.league} · ${formatTime(p.commence)}</div>
+        </div>
+
+        <div class="odds-row">
+          <div class="odds-box">
+            <div class="odds-box-label">${p.home}</div>
+            <div class="odds-box-val">${p.odds_home || '—'}</div>
+          </div>
+          <div class="odds-box">
+            <div class="odds-box-label">เสมอ</div>
+            <div class="odds-box-val">${p.odds_draw || '—'}</div>
+          </div>
+          <div class="odds-box">
+            <div class="odds-box-label">${p.away}</div>
+            <div class="odds-box-val">${p.odds_away || '—'}</div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div>
+            <div class="stat-label">แนะนำ</div>
+            <div class="stat-value"><span class="bet-pill">${p.bet}</span></div>
+          </div>
+          <div>
+            <div class="stat-label">Odds เป้าหมาย</div>
+            <div class="stat-value odds-num">${p.odds_target || '—'}</div>
+          </div>
+        </div>
+
+        <div class="prob-section">
+          <div class="prob-bar-wrap">
+            <div class="prob-seg" style="width:${hw}%;background:#00ff87"></div>
+            <div class="prob-seg" style="width:${dp}%;background:#ffd166"></div>
+            <div class="prob-seg" style="width:${aw}%;background:#ff6b6b"></div>
+          </div>
+          <div class="prob-labels">
+            <span><span class="prob-dot" style="background:#00ff87"></span>${p.home} ${hw}%</span>
+            <span><span class="prob-dot" style="background:#ffd166"></span>เสมอ ${dp}%</span>
+            <span><span class="prob-dot" style="background:#ff6b6b"></span>${p.away} ${aw}%</span>
+          </div>
+        </div>
+
+        <div class="card-foot">
+          <div class="analysis">${p.analysis}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+  } catch(e) {
+    container.innerHTML = `<div class="state">โหลดข้อมูลไม่ได้<br><small style="font-size:11px;margin-top:8px;display:block">${e.message}</small></div>`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
