@@ -1,0 +1,54 @@
+{
+  "date": "29/04/2025",
+  "updated_at": "2025-04-29T01:00:00+00:00",
+  "picks": [
+    {
+      "home": "Arsenal",
+      "away": "Chelsea",
+      "league": "Premier League",
+      "commence": "2025-04-29T19:45:00Z",
+      "home_win_pct": 55,
+      "draw_pct": 25,
+      "away_win_pct": 20,
+      "bet": "Arsenal Win",
+      "odds_target": 1.85,
+      "confidence": "high",
+      "analysis": "Arsenal home form is insane right now! Chelsea keeps losing away. Easy pick bro.",
+      "odds_home": 1.85,
+      "odds_draw": 3.4,
+      "odds_away": 4.2
+    },
+    {
+      "home": "Bayern Munich",
+      "away": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "commence": "2025-04-29T17:30:00Z",
+      "home_win_pct": 60,
+      "draw_pct": 20,
+      "away_win_pct": 20,
+      "bet": "Over 2.5",
+      "odds_target": 1.75,
+      "confidence": "high",
+      "analysis": "Der Klassiker is always goals! Last 5 meetings avg 3.8 goals. Lock it in.",
+      "odds_home": 1.65,
+      "odds_draw": 4,
+      "odds_away": 5.5
+    },
+    {
+      "home": "Real Madrid",
+      "away": "Atletico Madrid",
+      "league": "La Liga",
+      "commence": "2025-04-29T20:00:00Z",
+      "home_win_pct": 50,
+      "draw_pct": 28,
+      "away_win_pct": 22,
+      "bet": "Real Madrid Win",
+      "odds_target": 2.1,
+      "confidence": "medium",
+      "analysis": "Madrid Derby! Real back in form, Bellingham fit again. Atletico parks bus but Real can break through. Good value.",
+      "odds_home": 2.1,
+      "odds_draw": 3.2,
+      "odds_away": 3.6
+    }
+  ]
+}
