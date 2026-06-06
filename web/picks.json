@@ -1,24 +1,7 @@
 {
-  "date": "05/06/2026",
-  "updated_at": "2026-06-05T05:11:40.962644+00:00",
+  "date": "06/06/2026",
+  "updated_at": "2026-06-06T04:50:47.191205+00:00",
   "picks": [
-    {
-      "home": "FC Tokyo",
-      "away": "Cerezo Osaka",
-      "league": "J League",
-      "commence": "2026-06-06T05:00:00Z",
-      "home_win_pct": 54,
-      "draw_pct": 29,
-      "away_win_pct": 26,
-      "bet": "FC Tokyo ชนะ",
-      "odds_target": 1.84,
-      "value_score": 54.3,
-      "confidence": "high",
-      "analysis": "โคตรเข้าเว้ย! value score 54.3 คะแนน · 10 เจ้ามั่นใจ · implied prob 54% · odds 1.84",
-      "odds_home": 1.84,
-      "odds_draw": 3.48,
-      "odds_away": 3.79
-    },
     {
       "home": "Urawa Red Diamonds",
       "away": "Fagiano Okayama",
@@ -31,27 +14,44 @@
       "odds_target": 1.91,
       "value_score": 52.4,
       "confidence": "high",
-      "analysis": "โคตรเข้าเว้ย! value score 52.4 คะแนน · 10 เจ้ามั่นใจ · implied prob 52% · odds 1.91",
+      "analysis": "โคตรเข้าเว้ย! value score 52.4 คะแนน · 11 เจ้ามั่นใจ · implied prob 52% · odds 1.91",
       "odds_home": 1.91,
-      "odds_draw": 3.2,
-      "odds_away": 3.81
+      "odds_draw": 3.25,
+      "odds_away": 3.87
     },
     {
-      "home": "Kashima Antlers",
-      "away": "Vissel Kobe",
+      "home": "FC Tokyo",
+      "away": "Cerezo Osaka",
       "league": "J League",
       "commence": "2026-06-06T05:00:00Z",
-      "home_win_pct": 42,
-      "draw_pct": 32,
-      "away_win_pct": 35,
-      "bet": "Over 2.5 ประตู",
-      "odds_target": 2.06,
-      "value_score": 48.5,
+      "home_win_pct": 51,
+      "draw_pct": 28,
+      "away_win_pct": 29,
+      "bet": "FC Tokyo ชนะ",
+      "odds_target": 1.97,
+      "value_score": 50.8,
       "confidence": "high",
-      "analysis": "โคตรเข้าเว้ย! value score 48.5 คะแนน · 10 เจ้ามั่นใจ · implied prob 49% · odds 2.06",
-      "odds_home": 2.37,
-      "odds_draw": 3.1,
-      "odds_away": 2.85
+      "analysis": "โคตรเข้าเว้ย! value score 50.8 คะแนน · 11 เจ้ามั่นใจ · implied prob 51% · odds 1.97",
+      "odds_home": 1.97,
+      "odds_draw": 3.53,
+      "odds_away": 3.39
+    },
+    {
+      "home": "Mito HollyHock",
+      "away": "V-Varen Nagasaki",
+      "league": "J League",
+      "commence": "2026-06-06T06:00:00Z",
+      "home_win_pct": 49,
+      "draw_pct": 31,
+      "away_win_pct": 29,
+      "bet": "Over 2.5 ประตู",
+      "odds_target": 2.02,
+      "value_score": 49.5,
+      "confidence": "high",
+      "analysis": "โคตรเข้าเว้ย! value score 49.5 คะแนน · 11 เจ้ามั่นใจ · implied prob 50% · odds 2.02",
+      "odds_home": 2.05,
+      "odds_draw": 3.22,
+      "odds_away": 3.45
     }
   ]
 }
